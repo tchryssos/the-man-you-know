@@ -1,3 +1,3 @@
-const content = document.getElementById('content')
+import { drawCircle } from '/src/logic/drawShapes'
 
-content.textContent = 'TEMPLATE WORKS!'
+drawCircle()
