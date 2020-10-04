@@ -1,5 +1,5 @@
 import { getCanvasSize } from '/src/logic/elements'
-import { drawCircle } from '/src/logic/drawShapes'
+import { drawEllipse } from '/src/logic/drawShapes'
 import { getRandomBetween, getRandomColorString } from '/src/logic/util'
 
 export const drawHead = () => {
@@ -8,5 +8,15 @@ export const drawHead = () => {
 	const headRadiusY = getRandomBetween(canvasSize / 4, canvasSize / 2)
 	const skinColor = getRandomColorString()
 
-	drawCircle(canvasSize / 2, canvasSize / 2, headRadiusX, skinColor, skinColor)
+	drawEllipse(
+		canvasSize / 2,
+		canvasSize / 2,
+		headRadiusX,
+		headRadiusY,
+		Math.PI / 2,
+		0,
+		2 * Math.PI,
+		skinColor,
+		skinColor,
+	)
 }
