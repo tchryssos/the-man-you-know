@@ -4,23 +4,25 @@ import {
 
 export const drawEllipse = (
 	x, y, rX, rY, rotation,
-	startAngle, endAngle, drawCounterClockwise = true, stroke = "#fff",
+	startAngle, endAngle, drawCounterClockwise = true, stroke = "#fff", fill, 
 ) => {
 	canvasContext.beginPath()
 	canvasContext.strokeStyle = stroke
+	canvasContext.fillStyle = fill
 	canvasContext.ellipse(
 		x, y, rX, rY, rotation,
 		startAngle, endAngle, drawCounterClockwise
 	)
 	canvasContext.stroke()
+	canvasContext.fill()
 }
 
-export const drawCircle = (x, y, r, stroke) => (
+export const drawCircle = (x, y, r, stroke, fill) => (
 	drawEllipse(
 		x, y,
 		r, r,
 		Math.PI / 2,
 		0, 2 * Math.PI,
-		true, stroke
+		true, stroke, fill,
 	)
 )

@@ -1,5 +1,6 @@
 import { getCanvasSize, resizeCanvas } from '/src/logic/elements'
 import { drawCircle } from '/src/logic/drawShapes'
+import { drawHead } from '/src/logic/face'
 
 resizeCanvas()
-drawCircle(getCanvasSize() / 2, getCanvasSize() / 2, 50)
+drawHead()
