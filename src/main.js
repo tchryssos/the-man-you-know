@@ -1,6 +1,5 @@
-import { getCanvasSize, resizeCanvas } from '/src/logic/elements'
-import { drawCircle } from '/src/logic/drawShapes'
-import { drawHead } from '/src/logic/face'
+import { resizeCanvas } from '/src/logic/elements'
+import { createTheMan } from '/src/logic/face'
 
 resizeCanvas()
-drawHead()
+createTheMan()
