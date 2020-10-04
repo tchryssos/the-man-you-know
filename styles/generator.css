@@ -1,22 +1,3 @@
 #face-zone {
 	margin-top: 16px;
 }
-
-#face-canvas {
-	height: 300px;
-	width: 300px;
-}
-
-@media only screen and (min-width: 960px) and (min-height: 700px) {
-	#face-canvas {
-		height: 500px;
-		width: 500px;
-	}
-}
-
-@media only screen and (min-width: 1280px) and (min-height: 900px) {
-	#face-canvas {
-		height: 700px;
-		width: 700px;
-	}
-}
