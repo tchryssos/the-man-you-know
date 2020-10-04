@@ -3,11 +3,24 @@ import {
 } from '/src/logic/elements'
 
 export const drawEllipse = (
-	x, y, r, startAngle = 0, endAngle = 2 * Math.PI,
-	drawCounterClockwise = true, fill = "#fff",
+	x, y, rX, rY, rotation,
+	startAngle, endAngle, drawCounterClockwise = true, stroke = "#fff",
 ) => {
 	canvasContext.beginPath()
-	canvasContext.strokeStyle = fill
-	canvasContext.arc(x, y, r, startAngle, endAngle, drawCounterClockwise)
+	canvasContext.strokeStyle = stroke
+	canvasContext.ellipse(
+		x, y, rX, rY, rotation,
+		startAngle, endAngle, drawCounterClockwise
+	)
 	canvasContext.stroke()
 }
+
+export const drawCircle = (x, y, r, stroke) => (
+	drawEllipse(
+		x, y,
+		r, r,
+		Math.PI / 2,
+		0, 2 * Math.PI,
+		true, stroke
+	)
+)
