@@ -26,6 +26,7 @@ export const getWindowSizeScore = () => {
 	return Math.min(heightScore, widthScore)
 }
 
+// START - CANVAS - START
 export const canvas = document.getElementById('face-canvas')
 export const canvasContext = canvas.getContext('2d')
 export const setCanvasSize = (s) => {
@@ -33,7 +34,6 @@ export const setCanvasSize = (s) => {
 	canvas.width = s
 }
 export const getCanvasSize = () => canvas.height
-
 export const resizeCanvas = () => {
 	switch (getWindowSizeScore()) {
 		case 1:
@@ -49,3 +49,4 @@ export const resizeCanvas = () => {
 			setCanvasSize(300)
 	}
 }
+// END - CANVAS - END
