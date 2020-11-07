@@ -8,10 +8,6 @@ const drawHead = () => {
 	const headRadiusY = getRandomBetween(canvasSize / 4, canvasSize / 2)
 	const skinColor = getRandomColorString()
 
-	console.log({
-		headRadiusX, headRadiusY, skinColor,
-	})
-
 	drawEllipse(
 		canvasSize / 2,
 		canvasSize / 2,
@@ -37,32 +33,54 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 
 
 	// Eyeballs
-	const eyeRadiusX = getRandomBetween(headRadiusX / 8, headRadiusX / 4)
-	const eyeRadiusY = getRandomBetween(headRadiusY / 8, headRadiusY / 4)
-	const eyeInnerBound = headCenter + eyeRadiusX
-	const eyeOuterBound = headCenter + headRadiusX - (eyeRadiusX * 2)
+	const eyeXRadius = getRandomBetween(headRadiusX / 8, headRadiusX / 4)
+	const eyeYRadius = getRandomBetween(headRadiusY / 8, headRadiusY / 4)
+	const eyeInnerBound = headCenter + eyeXRadius
+	const eyeOuterBound = headCenter + headRadiusX - (eyeXRadius * 2)
 
 	const eyeRX = getRandomBetween(eyeInnerBound, eyeOuterBound)
-	const eyeLX = headCenter - ((headCenter + headRadiusX) - eyeRX)
+	const eyeXOffset = eyeRX - headCenter
+	const eyeLX = headCenter - eyeXOffset
 	const eyeY = canvasSize / 2
+	const eyeYOffset = eyeY - headCenter
 
 	// Draw eyeballs
-	drawEyeEllipse(eyeRX, eyeY, eyeRadiusX, eyeRadiusY, '#fff')
-	drawEyeEllipse(eyeLX, eyeY, eyeRadiusX, eyeRadiusY, '#fff')
+	drawEyeEllipse(eyeRX, eyeY, eyeXRadius, eyeYRadius, '#fff')
+	drawEyeEllipse(eyeLX, eyeY, eyeXRadius, eyeYRadius, '#fff')
 
 	// Pupils
-	const pupilRadiusX = getRandomBetween(eyeRadiusX / 4, eyeRadiusX / 2)
-	const pupilRadiusY = getRandomBetween(eyeRadiusY / 4, eyeRadiusY / 2)
-	const pupilRX = eyeRX + 4
-	const pupilLX = eyeLX + 4
-	const pupilY = eyeY + 4
+	const pupilXRadius = getRandomBetween(eyeXRadius / 2, eyeXRadius / 1.5)
+	const pupilYRadius = getRandomBetween(eyeYRadius / 4, eyeYRadius / 2)
+	const pupilInnerBound = eyeRX - eyeXRadius + pupilXRadius
+	const pupilOutterBound = eyeRX + eyeXRadius - pupilYRadius
+	const pupilRX = getRandomBetween(pupilInnerBound, pupilOutterBound)
+	const pupilXOffset = pupilRX - headCenter
+	const pupilLX = headCenter - pupilXOffset
+	const pupilY = eyeY
+	const pupilYOffset = pupilY - headCenter
 
 	// Draw Pupils
-	drawEyeEllipse(pupilRX, pupilY, pupilRadiusX, pupilRadiusY, '#000')
-	drawEyeEllipse(pupilLX, pupilY, pupilRadiusX, pupilRadiusY, '#000')
+	drawEyeEllipse(pupilRX, pupilY, pupilXRadius, pupilYRadius, '#000')
+	drawEyeEllipse(pupilLX, pupilY, pupilXRadius, pupilYRadius, '#000')
+
+	return {
+		eyeXOffset, eyeXRadius,
+		eyeYOffset, eyeYRadius,
+		pupilXOffset, pupilXRadius,
+		pupilYOffset, pupilYRadius
+	}
+}
+
+const drawMouth = ({
+	canvasSize, skinColor,
+	headXRadius, headYRadius,
+	eyeYOffset, eyeYRadius,
+}) => {
+	
 }
 
 export const createTheMan = () => {
 	const headProps = drawHead()
-	drawEyes(headProps)
+	const eyeProps = drawEyes(headProps)
+	const mouthProps = drawMouth({ ...headProps, ...eyeProps })
 }
