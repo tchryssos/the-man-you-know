@@ -78,22 +78,29 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 }
 
 const drawMouth = ({
-	canvasSize, skinColor,
+	canvasSize,
 	headRadiusX, headRadiusY,
 	eyeYOffset, eyeYRadius,
 }) => {
 	const headCenter = canvasSize / 2
-	const mouthYTop = getRandomBetween(headCenter, headCenter + headRadiusY - 50)
-	const mouthYBottom = getRandomBetween(mouthYTop, headCenter + headRadiusY - 50)
+	const mouthPadding = 60
+	const mouthYTop = getRandomBetween(
+		headCenter + eyeYRadius,
+		headCenter + headRadiusY - mouthPadding
+	)
+	const mouthYBottom = getRandomBetween(
+		mouthYTop,
+		headCenter + headRadiusY - mouthPadding
+	)
 	const mouthXLMax = getEllipsePoint(
 		[mouthYTop, headCenter, headRadiusY],
 		[headCenter, headRadiusX],
-	) + 60
+	) + mouthPadding
 	const mouthXRMax = getEllipsePoint(
 		[mouthYTop, headCenter, headRadiusY],
 		[headCenter, headRadiusX],
 		'below'
-	) - 60
+	) - mouthPadding
 	const mouthLX = getRandomBetween(mouthXLMax, headCenter)
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mood = getRandomItem(['smile', 'frown', 'neutral'])
