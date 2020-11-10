@@ -26,3 +26,12 @@ export const drawCircle = (x, y, r, stroke, fill) => (
 		stroke, fill,
 	)
 )
+
+export const drawCurve = (startX, startY, middleX, middleY, endX, endY, fill = "#000") => {
+	canvasContext.beginPath()
+	canvasContext.fillStyle = fill
+	canvasContext.lineWidth = 4
+	canvasContext.moveTo(startX, startY)
+	canvasContext.quadraticCurveTo(middleX, middleY, endX, endY)
+	canvasContext.stroke()
+}
