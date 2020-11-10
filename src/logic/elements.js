@@ -50,3 +50,7 @@ export const resizeCanvas = () => {
 	}
 }
 // END - CANVAS - END
+
+// START - NAME - START
+export const namePTag = document.getElementById('name')
+// END - NAME - END

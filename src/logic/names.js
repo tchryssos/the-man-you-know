@@ -1,5 +1,14 @@
 import { getRandomItem } from '/src/logic/util'
 
+export const defaultNames = [
+	'Billy Joel',
+	'Neil Diamond',
+	'Art Garfunkel',
+	'Barry Manilow',
+	'England Dan',
+	'Chuck Mangione',
+]
+
 // START - NAME GENERATOR - START
 const vowels = ['a', 'e', 'i', 'o', 'u', 'y']
 

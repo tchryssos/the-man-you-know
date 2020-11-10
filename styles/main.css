@@ -34,3 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 #main {
 	padding: 16px;
 }
+
+#face-zone {
+	height: unset;
+}
