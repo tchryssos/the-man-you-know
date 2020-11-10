@@ -1,11 +1,12 @@
 import { getCanvasSize } from '/src/logic/elements'
 import { drawEllipse } from '/src/logic/drawShapes'
 import { getRandomBetween, getRandomColorString } from '/src/logic/util'
+import { getEllipsePoint } from '/src/logic/math'
 
 const drawHead = () => {
 	const canvasSize = getCanvasSize()
-	const headRadiusX = getRandomBetween(canvasSize / 4, canvasSize / 2)
-	const headRadiusY = getRandomBetween(canvasSize / 4, canvasSize / 2)
+	const headRadiusX = getRandomBetween(canvasSize / 3, canvasSize / 2)
+	const headRadiusY = getRandomBetween(canvasSize / 3, canvasSize / 2)
 	const skinColor = getRandomColorString()
 
 	drawEllipse(
@@ -43,6 +44,11 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 	const eyeLX = headCenter - eyeXOffset
 	const eyeY = canvasSize / 2
 	const eyeYOffset = eyeY - headCenter
+	
+	getEllipsePoint(
+		[eyeRX + eyeXRadius, canvasSize / 2, headRadiusX],
+		[canvasSize / 2, headRadiusY]
+	)
 
 	// Draw eyeballs
 	drawEyeEllipse(eyeRX, eyeY, eyeXRadius, eyeYRadius, '#fff')
@@ -76,7 +82,7 @@ const drawMouth = ({
 	headXRadius, headYRadius,
 	eyeYOffset, eyeYRadius,
 }) => {
-	
+
 }
 
 export const createTheMan = () => {

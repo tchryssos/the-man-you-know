@@ -1,3 +1,7 @@
-export const getEllipsePoint = (knownCoord, coordRadius, otherRadius) => (
-	Math.sqrt(otherRadius) * Math.sqrt(1 - Math.pow(knownCoord / coordRadius, 2))
-)
+// From https://www.usingmaths.com/senior_secondary/javascript/ellipseequation.php
+export const getEllipsePoint = (knownPointData, unknownPointData) => {
+	const [kCoord, kCenter, kAxis] = knownPointData
+	const [uCenter, uAxis] = unknownPointData
+	const unknownCoord = uCenter + (uAxis / kAxis) * Math.sqrt(Math.pow(kAxis, 2) - Math.pow((kCoord - kCenter), 2))
+	return unknownCoord
+}
