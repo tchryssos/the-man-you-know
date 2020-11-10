@@ -17,15 +17,14 @@ export const drawEllipse = (
 	canvasContext.fill()
 }
 
-export const drawCircle = (x, y, r, stroke, fill) => (
-	drawEllipse(
-		x, y,
-		r, r,
-		Math.PI / 2,
-		0, 2 * Math.PI,
-		stroke, fill,
-	)
-)
+export const drawCircle = (x, y, r, stroke, fill) => {
+	canvasContext.beginPath()
+	canvasContext.strokeStyle = stroke
+	canvasContext.fillStyle = fill
+	canvasContext.arc(x, y, r, 0, 2 * Math.PI)
+	canvasContext.stroke()
+	canvasContext.fill()
+}
 
 export const drawCurve = (startX, startY, middleX, middleY, endX, endY, fill = "#000") => {
 	canvasContext.beginPath()

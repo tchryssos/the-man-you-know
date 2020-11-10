@@ -2,6 +2,7 @@ import { getCanvasSize } from '/src/logic/elements'
 import { drawEllipse, drawCurve, drawLine } from '/src/logic/drawShapes'
 import { getRandomBetween, getRandomColorString, getRandomItem } from '/src/logic/util'
 import { getEllipsePoint } from '/src/logic/math'
+import { drawCircle } from './drawShapes'
 
 const drawHead = () => {
 	const canvasSize = getCanvasSize()
@@ -97,10 +98,17 @@ const drawMouth = ({
 	) - mouthPadding
 	const mouthLX = getRandomBetween(mouthXLMax, headCenter)
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
-	const mood = getRandomItem(['smile', 'frown', 'neutral'])
+	const mood = getRandomItem(['smile', 'frown', 'neutral', 'surprise'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
 		drawLine(mouthLX, mouthRX, y.top)
+	} else if (mood === 'surprise') {
+		drawCircle(
+			(mouthLX + mouthRX) / 2,
+			(y.top + y.bot) / 2,
+			mouthRX - headCenter,
+			'#000', '#000'
+		)
 	} else {
 		if (mood === 'frown') {
 			y = { top: mouthYBottom, bot: mouthYTop }
