@@ -44,7 +44,7 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 	const maxEyeYOffset = getEllipsePoint(
 		[eyeRX + eyeXRadius, canvasSize / 2, headRadiusX],
 		[canvasSize / 2, headRadiusY]
-	)
+	) + eyeYRadius
 	const eyeLX = headCenter - eyeXOffset
 	const eyeY = getRandomBetween(canvasSize / 2, maxEyeYOffset)
 	const eyeYOffset = eyeY - headCenter
