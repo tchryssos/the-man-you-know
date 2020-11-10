@@ -19,7 +19,7 @@ const drawHead = () => {
 		skinColor,
 		skinColor,
 	)
-	return { canvasSize, headRadiusX, headRadiusY, skinColor }
+	return { canvasSize, headRadiusX, headRadiusY, skinColor, headCenter: canvasSize / 2 }
 }
 
 const drawEyeEllipse = (x, y, rX, rY, color) => drawEllipse(
@@ -29,10 +29,7 @@ const drawEyeEllipse = (x, y, rX, rY, color) => drawEllipse(
 	2 * Math.PI,
 	color, color,
 )
-const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
-	const headCenter = canvasSize / 2
-
-
+const drawEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
 	// Eyeballs
 	const eyeXRadius = getRandomBetween(headRadiusX / 8, headRadiusX / 4)
 	const eyeYRadius = getRandomBetween(headRadiusY / 8, headRadiusY / 4)
@@ -78,11 +75,8 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 }
 
 const drawMouth = ({
-	canvasSize,
-	headRadiusX, headRadiusY,
-	eyeYOffset, eyeYRadius,
+	headRadiusX, headRadiusY, eyeYRadius, headCenter
 }) => {
-	const headCenter = canvasSize / 2
 	const mouthPadding = 60
 	const mouthYTop = getRandomBetween(
 		headCenter + eyeYRadius,
@@ -104,21 +98,33 @@ const drawMouth = ({
 	const mouthLX = getRandomBetween(mouthXLMax, headCenter)
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mood = getRandomItem(['smile', 'frown', 'neutral'])
+	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
-		drawLine(mouthLX, mouthRX, mouthYTop)
+		drawLine(mouthLX, mouthRX, y.top)
 	} else {
-		const y = mood === 'smile' ?
-			{ top: mouthYTop, bot: mouthYBottom } : { top: mouthYBottom, bot: mouthYTop }
+		if (mood === 'frown') {
+			y = { top: mouthYBottom, bot: mouthYTop }
+		}
 		drawCurve(
 			mouthLX, y.top,
 			getRandomBetween(mouthLX, mouthRX), y.bot,
 			mouthRX, y.top,
 		)
 	}
+	return {
+		mouthLX, mouthRX, mouthTop: y.top, mouthBottom: y.bot
+	}
+}
+
+const drawNose = ({
+	headCenter, headRadiusX, headRadiusY, mouthTop, eyeYOffset,
+	eyeYRadius,
+}) => {
 }
 
 export const createTheMan = () => {
 	const headProps = drawHead()
 	const eyeProps = drawEyes(headProps)
 	const mouthProps = drawMouth({ ...headProps, ...eyeProps })
+	const noseProps = drawNose({...headProps, ...eyeProps, ...mouthProps })
 }
