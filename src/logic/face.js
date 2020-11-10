@@ -41,14 +41,13 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 
 	const eyeRX = getRandomBetween(eyeInnerBound, eyeOuterBound)
 	const eyeXOffset = eyeRX - headCenter
-	const eyeLX = headCenter - eyeXOffset
-	const eyeY = canvasSize / 2
-	const eyeYOffset = eyeY - headCenter
-	
-	getEllipsePoint(
+	const maxEyeYOffset = getEllipsePoint(
 		[eyeRX + eyeXRadius, canvasSize / 2, headRadiusX],
 		[canvasSize / 2, headRadiusY]
 	)
+	const eyeLX = headCenter - eyeXOffset
+	const eyeY = getRandomBetween(canvasSize / 2, maxEyeYOffset)
+	const eyeYOffset = eyeY - headCenter
 
 	// Draw eyeballs
 	drawEyeEllipse(eyeRX, eyeY, eyeXRadius, eyeYRadius, '#fff')
@@ -73,7 +72,8 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY }) => {
 		eyeXOffset, eyeXRadius,
 		eyeYOffset, eyeYRadius,
 		pupilXOffset, pupilXRadius,
-		pupilYOffset, pupilYRadius
+		pupilYOffset, pupilYRadius,
+		maxEyeYOffset,
 	}
 }
 
