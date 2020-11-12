@@ -96,19 +96,20 @@ const drawMouth = ({
 		[headCenter, headRadiusX],
 		'below'
 	) - mouthPadding
-	const mouthLX = getRandomBetween(mouthXLMax, headCenter)
+	// const mouthLX = getRandomBetween(mouthXLMax, headCenter)
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
+	const mouthLX = headCenter - (mouthRX - headCenter)
 	const mood = getRandomItem(['smile', 'frown', 'neutral', 'surprise'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
 		drawLine(mouthLX, mouthRX, y.top)
-	} else if (mood === 'surprise') {
-		drawCircle(
-			(mouthLX + mouthRX) / 2,
-			(y.top + y.bot) / 2,
-			mouthRX - headCenter,
-			'#000', '#000'
-		)
+	// } else if (mood === 'surprise') {
+	// 	drawCircle(
+	// 		(mouthLX + mouthRX) / 2,
+	// 		(y.top + y.bot) / 2,
+	// 		mouthRX - headCenter,
+	// 		'#000', '#000'
+	// 	)
 	} else {
 		if (mood === 'frown') {
 			y = { top: mouthYBottom, bot: mouthYTop }
