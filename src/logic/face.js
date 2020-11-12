@@ -96,7 +96,6 @@ const drawMouth = ({
 		[headCenter, headRadiusX],
 		'below'
 	) - mouthPadding
-	// const mouthLX = getRandomBetween(mouthXLMax, headCenter)
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mouthLX = headCenter - (mouthRX - headCenter)
 	const mood = getRandomItem(['smile', 'frown', 'neutral', 'surprise'])
@@ -129,6 +128,22 @@ const drawNose = ({
 	headCenter, headRadiusX, headRadiusY, mouthTop, eyeYOffset,
 	eyeYRadius,
 }) => {
+	const nosePadding = 20
+	const noseTop = getRandomBetween(
+		Math.min(headCenter - eyeYOffset + eyeYRadius + nosePadding, mouthTop - nosePadding),
+		mouthTop - nosePadding
+	)
+
+	const noseBottom = Math.max(
+		getRandomBetween(noseTop, noseTop + nosePadding),
+		noseTop + 10
+	)
+	const noseX = getRandomBetween(headCenter, headCenter + headRadiusX - nosePadding)
+	drawCurve(
+		headCenter, noseTop,
+		noseX, (noseTop + noseBottom) / 2,
+		headCenter, noseBottom,
+	)
 }
 
 export const createTheMan = () => {
