@@ -129,8 +129,7 @@ const drawNose = ({
 	if (eyesClose) {
 		noseTop = headCenter + eyeYRadius
 	}
-
-	const noseBottom = getRandomBetween(noseTop + 10, Math.min(noseTop + 80, mouthTop - 10))
+	const noseBottom = getRandomBetween(noseTop + 10, Math.min(noseTop + 80, mouthTop - 20))
 
 	let noseX = getRandomBetween(headCenter, headCenter + headRadiusX - nosePadding)
 	if (!eyesClose) {
@@ -143,6 +142,8 @@ const drawNose = ({
 		noseX, (noseTop + noseBottom) / 2,
 		headCenter, noseBottom,
 	)
+
+	return { noseTop, noseBottom, noseX }
 }
 
 export const createTheMan = () => {
