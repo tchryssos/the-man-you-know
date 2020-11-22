@@ -66,12 +66,14 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
 	drawEyeEllipse(pupilRX, pupilY, pupilXRadius, pupilYRadius, '#000')
 	drawEyeEllipse(pupilLX, pupilY, pupilXRadius, pupilYRadius, '#000')
 
+	const eyesClose = eyeXOffset - eyeXRadius <= 20
+
 	return {
 		eyeXOffset, eyeXRadius,
 		eyeYOffset, eyeYRadius,
 		pupilXOffset, pupilXRadius,
 		pupilYOffset, pupilYRadius,
-		maxEyeYOffset,
+		maxEyeYOffset, eyesClose
 	}
 }
 
@@ -98,17 +100,10 @@ const drawMouth = ({
 	) - mouthPadding
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mouthLX = headCenter - (mouthRX - headCenter)
-	const mood = getRandomItem(['smile', 'frown', 'neutral', 'surprise'])
+	const mood = getRandomItem(['smile', 'frown', 'neutral'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
 		drawLine(mouthLX, mouthRX, y.top)
-	// } else if (mood === 'surprise') {
-	// 	drawCircle(
-	// 		(mouthLX + mouthRX) / 2,
-	// 		(y.top + y.bot) / 2,
-	// 		mouthRX - headCenter,
-	// 		'#000', '#000'
-	// 	)
 	} else {
 		if (mood === 'frown') {
 			y = { top: mouthYBottom, bot: mouthYTop }
@@ -126,19 +121,22 @@ const drawMouth = ({
 
 const drawNose = ({
 	headCenter, headRadiusX, headRadiusY, mouthTop, eyeYOffset,
-	eyeYRadius,
+	eyeYRadius, eyesClose, eyeXOffset, eyeXRadius
 }) => {
 	const nosePadding = 20
-	const noseTop = getRandomBetween(
-		Math.min(headCenter - eyeYOffset + eyeYRadius + nosePadding, mouthTop - nosePadding),
-		mouthTop - nosePadding
-	)
 
-	const noseBottom = Math.max(
-		getRandomBetween(noseTop, noseTop + nosePadding),
-		noseTop + 10
-	)
-	const noseX = getRandomBetween(headCenter, headCenter + headRadiusX - nosePadding)
+	let noseTop = headCenter + eyeYOffset 
+	if (eyesClose) {
+		noseTop = headCenter + eyeYRadius
+	}
+
+	const noseBottom = getRandomBetween(noseTop + 10, Math.min(noseTop + 80, mouthTop - 10))
+
+	let noseX = getRandomBetween(headCenter, headCenter + headRadiusX - nosePadding)
+	if (!eyesClose) {
+		noseX = Math.min(noseX, headCenter + eyeXOffset - eyeXRadius)
+	}
+
 	drawCurve(
 		headCenter, noseTop,
 		noseX, (noseTop + noseBottom) / 2,
