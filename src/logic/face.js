@@ -136,6 +136,7 @@ const drawNose = ({
 	if (!eyesClose) {
 		noseX = Math.min(noseX, headCenter + eyeXOffset - eyeXRadius)
 	}
+	noseX = Math.max(headCenter + 10, noseX)
 
 	drawCurve(
 		headCenter, noseTop,
