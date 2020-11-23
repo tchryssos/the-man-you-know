@@ -1,6 +1,5 @@
-export const getRandomItem = (array) => (
+export const getRandomItem = (array) =>
 	array[Math.floor(Math.random() * array.length)]
-)
 
 export const getRandomBetween = (min, max) => {
 	return Math.floor(Math.random() * (max - min) + min)
@@ -11,8 +10,7 @@ export const addAndRemoveClass = (el, classString, time) => {
 	setTimeout(() => el.classList.remove(classString), time)
 }
 
-
-export const  getRandomColorString = () => {
+export const getRandomColorString = () => {
 	const letters = '0123456789ABCDEF'
 	let color = '#'
 	for (let i = 0; i < 6; i++) {
