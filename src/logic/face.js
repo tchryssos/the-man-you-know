@@ -15,8 +15,8 @@ import { getEllipsePoint } from '/src/logic/math'
 
 const drawHead = () => {
 	const canvasSize = getCanvasSize()
-	const headRadiusX = getRandomBetween(canvasSize / 3, canvasSize / 2)
-	const headRadiusY = getRandomBetween(canvasSize / 3, canvasSize / 2)
+	const headRadiusX = Math.round(getRandomBetween(canvasSize / 3.5, canvasSize / 2.5))
+	const headRadiusY = Math.round(getRandomBetween(canvasSize / 3.5, canvasSize / 2.5))
 	const skinColor = getRandomColorString()
 
 	drawEllipse(
@@ -108,14 +108,14 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 			[mouthYTop, headCenter, headRadiusY],
 			[headCenter, headRadiusX],
 		) + mouthPadding
-	const mouthXRMax =
+	let mouthXRMax =
 		getEllipsePoint(
 			[mouthYTop, headCenter, headRadiusY],
 			[headCenter, headRadiusX],
 			'below',
 		) - mouthPadding
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
-	const mouthLX = headCenter - (mouthRX - headCenter)
+	const mouthLX = Math.min(headCenter - (mouthRX - headCenter), mouthRX - 20)
 	const mood = getRandomItem(['smile', 'frown', 'neutral'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
