@@ -7,8 +7,8 @@ export const getEllipsePoint = (
 	const [kCoord, kCenter, kAxis] = knownPointData
 	const [uCenter, uAxis] = unknownPointData
 	const t2 =
-		(uAxis / kAxis) *
-		Math.sqrt(Math.pow(kAxis, 2) - Math.pow(kCoord - kCenter, 2))
+		(kAxis / uAxis) *
+		Math.sqrt(Math.pow(uAxis, 2) - Math.pow(kCoord - kCenter, 2))
 	if (hemisphere === 'above') {
 		return uCenter - t2
 	} else {

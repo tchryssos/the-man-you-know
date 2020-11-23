@@ -188,25 +188,29 @@ const drawNose = ({
 
 const drawHair = ({ headCenter, headRadiusY, headRadiusX }) => {
 	const hairColor = getRandomColorString()
-	const hairRadius = getRandomBetween(2, 10)
-	const hairThickness = Math.floor(headRadiusX / (hairRadius * 2))
-
+	const hairWidth = getRandomBetween(2, 10)
+	const hairDensity = Math.floor(headRadiusX / hairWidth)
 	const hairRoots = times((n) => {
 		return getEllipsePoint(
-			[headCenter - hairThickness * n, headCenter, headRadiusX],
+			[headCenter - hairWidth * n, headCenter, headRadiusX],
 			[headCenter, headRadiusY],
 		)
-	}, hairThickness)
-	console.log(hairRadius, hairThickness, hairRoots, headRadiusX)
+	}, hairDensity)
 	hairRoots.forEach((r, i) => {
-		const centerPoint = [headCenter - hairThickness * i, r]
-		drawTriangle(
-			centerPoint[0] - hairRadius,
-			centerPoint[1],
-			centerPoint[0] + hairRadius,
-			centerPoint[1],
-			centerPoint[0],
-			centerPoint[1] - hairRadius,
+		const startingLX = headCenter - hairWidth * i
+		drawLine(
+			startingLX,
+			r,
+			startingLX - hairWidth,
+			r - getRandomBetween(2, 60),
+			hairColor,
+		)
+		const startingRX = headCenter + hairWidth * i
+		drawLine(
+			startingRX,
+			r,
+			startingRX + hairWidth,
+			r - getRandomBetween(2, 60),
 			hairColor,
 		)
 	})

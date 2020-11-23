@@ -55,9 +55,9 @@ export const drawCurve = (
 	ctx.stroke()
 }
 
-export const drawLine = (ax, ay, bx, by, fill = '#000') => {
+export const drawLine = (ax, ay, bx, by, stroke = '#000') => {
 	ctx.beginPath()
-	ctx.fillStyle = fill
+	ctx.strokeStyle = stroke
 	ctx.lineWidth = standardLineWidth
 	ctx.moveTo(ax, ay)
 	ctx.lineTo(bx, by)
