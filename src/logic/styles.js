@@ -10,6 +10,7 @@ export const getMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 			drawLine(mouthLX, y.top, mouthRX, y.top)
 			break
 		case 'frown':
+			// if frowning, flip top and bottom mouth y coords
 			y = { top: mouthYBottom, bot: mouthYTop }
 			drawCurve(
 				mouthLX,
@@ -34,44 +35,34 @@ export const getMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 	return y
 }
 
-export const getNose = ({
-	headCenter,
-	eyeYOffset,
-	eyesClose,
-	eyeYRadius,
-	mouthTop,
-	headRadiusX,
-	nosePadding,
-	eyeXOffset,
-	eyeXRadius,
-	headRadiusY,
-}) => {
+export const getNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
 	const shape = getRandomItem(['round', 'hook'])
-	let noseTop = headCenter + eyeYOffset
-	if (eyesClose) {
-		noseTop = headCenter + eyeYRadius
-	}
-	const noseBottom = getRandomBetween(
-		noseTop + 10,
-		Math.min(noseTop + 80, mouthTop - 20),
-	)
 
-	let noseX = getRandomBetween(
-		headCenter,
-		headCenter + headRadiusX - nosePadding,
-	)
-	if (!eyesClose) {
-		noseX = Math.min(noseX, headCenter + eyeXOffset - eyeXRadius)
-	}
-	noseX = Math.max(headCenter + 10, noseX)
+	switch (shape) {
+		case 'hook': {
+			const bridgeBottom = noseTop + (noseBottom - noseTop) * 0.5
+			drawLine(headCenter, noseTop, headCenter, bridgeBottom)
+			const tipShift = noseX >= headCenter ? -1 : 1
+			drawCurve(
+				headCenter + tipShift,
+				bridgeBottom - 2,
+				noseX,
+				(bridgeBottom + noseBottom) / 2,
+				headCenter + tipShift,
+				noseBottom,
+			)
+			break
+		}
+		default:
+			// round
 
-	drawCurve(
-		headCenter,
-		noseTop,
-		noseX,
-		(noseTop + noseBottom) / 2,
-		headCenter,
-		noseBottom,
-	)
-	return { noseTop, noseBottom, noseX }
+			drawCurve(
+				headCenter,
+				noseTop,
+				noseX,
+				(noseTop + noseBottom) / 2,
+				headCenter,
+				noseBottom,
+			)
+	}
 }
