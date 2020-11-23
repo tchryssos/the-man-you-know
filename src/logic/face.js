@@ -6,17 +6,18 @@ import {
 	drawLine,
 	drawTriangle,
 } from '/src/logic/drawShapes'
-import {
-	getRandomBetween,
-	getRandomColorString,
-	getRandomItem,
-} from '/src/logic/util'
+import { getRandomBetween, getRandomColorString } from '/src/logic/util'
+import { getMouth } from '/src/logic/styles'
 import { getEllipsePoint } from '/src/logic/math'
 
 const drawHead = () => {
 	const canvasSize = getCanvasSize()
-	const headRadiusX = Math.round(getRandomBetween(canvasSize / 3.5, canvasSize / 2.5))
-	const headRadiusY = Math.round(getRandomBetween(canvasSize / 3.5, canvasSize / 2.5))
+	const headRadiusX = Math.round(
+		getRandomBetween(canvasSize / 3.5, canvasSize / 2.5),
+	)
+	const headRadiusY = Math.round(
+		getRandomBetween(canvasSize / 3.5, canvasSize / 2.5),
+	)
 	const skinColor = getRandomColorString()
 
 	drawEllipse(
@@ -116,23 +117,7 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 		) - mouthPadding
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mouthLX = Math.min(headCenter - (mouthRX - headCenter), mouthRX - 20)
-	const mood = getRandomItem(['smile', 'frown', 'neutral'])
-	let y = { top: mouthYTop, bot: mouthYBottom }
-	if (mood === 'neutral') {
-		drawLine(mouthLX, y.top, mouthRX, y.top)
-	} else {
-		if (mood === 'frown') {
-			y = { top: mouthYBottom, bot: mouthYTop }
-		}
-		drawCurve(
-			mouthLX,
-			y.top,
-			getRandomBetween(mouthLX, mouthRX),
-			y.bot,
-			mouthRX,
-			y.top,
-		)
-	}
+	const y = getMouth({ mouthYTop, mouthYBottom, mouthLX, mouthRX })
 	return {
 		mouthLX,
 		mouthRX,
