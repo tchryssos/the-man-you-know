@@ -1,12 +1,11 @@
 import { getCanvasSize } from '/src/logic/elements'
-import { drawEllipse, drawCurve, drawLine } from '/src/logic/drawShapes'
+import { drawEllipse, drawCurve, drawLine, drawTriangle } from '/src/logic/drawShapes'
 import {
 	getRandomBetween,
 	getRandomColorString,
 	getRandomItem,
 } from '/src/logic/util'
 import { getEllipsePoint } from '/src/logic/math'
-import { drawCircle } from './drawShapes'
 
 const drawHead = () => {
 	const canvasSize = getCanvasSize()
@@ -114,7 +113,7 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 	const mood = getRandomItem(['smile', 'frown', 'neutral'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 	if (mood === 'neutral') {
-		drawLine(mouthLX, mouthRX, y.top)
+		drawLine(mouthLX, y.top, mouthRX, y.top)
 	} else {
 		if (mood === 'frown') {
 			y = { top: mouthYBottom, bot: mouthYTop }
@@ -131,6 +130,8 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 	return {
 		mouthLX,
 		mouthRX,
+		mouthXLMax,
+		mouthXRMax,
 		mouthTop: y.top,
 		mouthBottom: y.bot,
 	}
@@ -179,9 +180,15 @@ const drawNose = ({
 	return { noseTop, noseBottom, noseX }
 }
 
+const drawHair = ({ headCenter, headRadiusY, headRadiusX }) => {
+	const hairColor = getRandomColorString()
+
+}
+
 export const createTheMan = () => {
-	const headProps = drawHead()
-	const eyeProps = drawEyes(headProps)
-	const mouthProps = drawMouth({ ...headProps, ...eyeProps })
-	const noseProps = drawNose({ ...headProps, ...eyeProps, ...mouthProps })
+	let faceProps = { ...drawHead() }
+	faceProps = { ...faceProps, ...drawEyes(faceProps) }
+	faceProps = { ...faceProps, ...drawMouth(faceProps) }
+	faceProps = { ...faceProps, ...drawNose(faceProps) }
+	faceProps = { ...faceProps, ...drawHair(faceProps) }
 }

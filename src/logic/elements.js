@@ -28,7 +28,7 @@ export const getWindowSizeScore = () => {
 
 // START - CANVAS - START
 export const canvas = document.getElementById('face-canvas')
-export const canvasContext = canvas.getContext('2d')
+export const ctx = canvas.getContext('2d')
 export const setCanvasSize = (s) => {
 	canvas.height = s
 	canvas.width = s

@@ -1,4 +1,5 @@
-import { canvasContext } from '/src/logic/elements'
+import { ctx } from '/src/logic/elements'
+import { standardLineWidth } from '/src/logic/constants'
 
 export const drawEllipse = (
 	x,
@@ -11,10 +12,10 @@ export const drawEllipse = (
 	fill,
 	drawCounterClockwise = true,
 ) => {
-	canvasContext.beginPath()
-	canvasContext.strokeStyle = stroke
-	canvasContext.fillStyle = fill
-	canvasContext.ellipse(
+	ctx.beginPath()
+	ctx.strokeStyle = stroke
+	ctx.fillStyle = fill
+	ctx.ellipse(
 		x,
 		y,
 		rX,
@@ -24,17 +25,17 @@ export const drawEllipse = (
 		endAngle,
 		drawCounterClockwise,
 	)
-	canvasContext.stroke()
-	canvasContext.fill()
+	ctx.stroke()
+	ctx.fill()
 }
 
 export const drawCircle = (x, y, r, stroke, fill) => {
-	canvasContext.beginPath()
-	canvasContext.strokeStyle = stroke
-	canvasContext.fillStyle = fill
-	canvasContext.arc(x, y, r, 0, 2 * Math.PI)
-	canvasContext.stroke()
-	canvasContext.fill()
+	ctx.beginPath()
+	ctx.strokeStyle = stroke
+	ctx.fillStyle = fill
+	ctx.arc(x, y, r, 0, 2 * Math.PI)
+	ctx.stroke()
+	ctx.fill()
 }
 
 export const drawCurve = (
@@ -46,19 +47,29 @@ export const drawCurve = (
 	endY,
 	fill = '#000',
 ) => {
-	canvasContext.beginPath()
-	canvasContext.fillStyle = fill
-	canvasContext.lineWidth = 4
-	canvasContext.moveTo(startX, startY)
-	canvasContext.quadraticCurveTo(middleX, middleY, endX, endY)
-	canvasContext.stroke()
+	ctx.beginPath()
+	ctx.fillStyle = fill
+	ctx.lineWidth = standardLineWidth
+	ctx.moveTo(startX, startY)
+	ctx.quadraticCurveTo(middleX, middleY, endX, endY)
+	ctx.stroke()
 }
 
-export const drawLine = (startX, endX, y, fill = '#000') => {
-	canvasContext.beginPath()
-	canvasContext.fillStyle = fill
-	canvasContext.lineWidth = 4
-	canvasContext.moveTo(startX, y)
-	canvasContext.lineTo(endX, y)
-	canvasContext.stroke()
+export const drawLine = (ax, ay, bx, by, fill = '#000') => {
+	ctx.beginPath()
+	ctx.fillStyle = fill
+	ctx.lineWidth = standardLineWidth
+	ctx.moveTo(ax, ay)
+	ctx.lineTo(bx, by)
+	ctx.stroke()
 }
+
+export const drawTriangle = (ax, ay, bx, by, cx, cy, fill = '#000') => {
+	ctx.beginPath()
+	ctx.fillStyle = fill
+	ctx.lineWidth = standardLineWidth
+	ctx.moveTo(ax, ay)
+	ctx.lineTo(bx, by)
+	ctx.lineTo(cx, cy)
+	ctx.fill()
+} 
