@@ -40,7 +40,8 @@ export const getNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
 
 	switch (shape) {
 		case 'hook': {
-			const bridgeBottom = noseTop + (noseBottom - noseTop) * 0.5
+			const bridgeBottom =
+				noseTop + (noseBottom - noseTop) * (getRandomBetween(3, 7) / 10)
 			drawLine(headCenter, noseTop, headCenter, bridgeBottom)
 			const tipShift = noseX >= headCenter ? -1 : 1
 			drawCurve(
