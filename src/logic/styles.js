@@ -33,3 +33,45 @@ export const getMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 	}
 	return y
 }
+
+export const getNose = ({
+	headCenter,
+	eyeYOffset,
+	eyesClose,
+	eyeYRadius,
+	mouthTop,
+	headRadiusX,
+	nosePadding,
+	eyeXOffset,
+	eyeXRadius,
+	headRadiusY,
+}) => {
+	const shape = getRandomItem(['round', 'hook'])
+	let noseTop = headCenter + eyeYOffset
+	if (eyesClose) {
+		noseTop = headCenter + eyeYRadius
+	}
+	const noseBottom = getRandomBetween(
+		noseTop + 10,
+		Math.min(noseTop + 80, mouthTop - 20),
+	)
+
+	let noseX = getRandomBetween(
+		headCenter,
+		headCenter + headRadiusX - nosePadding,
+	)
+	if (!eyesClose) {
+		noseX = Math.min(noseX, headCenter + eyeXOffset - eyeXRadius)
+	}
+	noseX = Math.max(headCenter + 10, noseX)
+
+	drawCurve(
+		headCenter,
+		noseTop,
+		noseX,
+		(noseTop + noseBottom) / 2,
+		headCenter,
+		noseBottom,
+	)
+	return { noseTop, noseBottom, noseX }
+}

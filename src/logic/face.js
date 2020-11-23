@@ -7,7 +7,7 @@ import {
 	drawTriangle,
 } from '/src/logic/drawShapes'
 import { getRandomBetween, getRandomColorString } from '/src/logic/util'
-import { getMouth } from '/src/logic/styles'
+import { getMouth, getNose } from '/src/logic/styles'
 import { getEllipsePoint } from '/src/logic/math'
 
 const drawHead = () => {
@@ -141,33 +141,18 @@ const drawNose = ({
 }) => {
 	const nosePadding = 20
 
-	let noseTop = headCenter + eyeYOffset
-	if (eyesClose) {
-		noseTop = headCenter + eyeYRadius
-	}
-	const noseBottom = getRandomBetween(
-		noseTop + 10,
-		Math.min(noseTop + 80, mouthTop - 20),
-	)
-
-	let noseX = getRandomBetween(
+	const { noseTop, noseBottom, noseX } = getNose({
 		headCenter,
-		headCenter + headRadiusX - nosePadding,
-	)
-	if (!eyesClose) {
-		noseX = Math.min(noseX, headCenter + eyeXOffset - eyeXRadius)
-	}
-	noseX = Math.max(headCenter + 10, noseX)
-
-	drawCurve(
-		headCenter,
-		noseTop,
-		noseX,
-		(noseTop + noseBottom) / 2,
-		headCenter,
-		noseBottom,
-	)
-
+		eyeYOffset,
+		eyesClose,
+		eyeYRadius,
+		mouthTop,
+		headRadiusX,
+		nosePadding,
+		eyeXOffset,
+		eyeXRadius,
+		headRadiusY,
+	})
 	return { noseTop, noseBottom, noseX }
 }
 
