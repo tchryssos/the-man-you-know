@@ -1,5 +1,11 @@
+import times from 'ramda/src/times'
 import { getCanvasSize } from '/src/logic/elements'
-import { drawEllipse, drawCurve, drawLine, drawTriangle } from '/src/logic/drawShapes'
+import {
+	drawEllipse,
+	drawCurve,
+	drawLine,
+	drawTriangle,
+} from '/src/logic/drawShapes'
 import {
 	getRandomBetween,
 	getRandomColorString,
@@ -182,7 +188,28 @@ const drawNose = ({
 
 const drawHair = ({ headCenter, headRadiusY, headRadiusX }) => {
 	const hairColor = getRandomColorString()
+	const hairRadius = getRandomBetween(2, 10)
+	const hairThickness = Math.floor(headRadiusX / (hairRadius * 2))
 
+	const hairRoots = times((n) => {
+		return getEllipsePoint(
+			[headCenter - hairThickness * n, headCenter, headRadiusX],
+			[headCenter, headRadiusY],
+		)
+	}, hairThickness)
+	console.log(hairRadius, hairThickness, hairRoots, headRadiusX)
+	hairRoots.forEach((r, i) => {
+		const centerPoint = [headCenter - hairThickness * i, r]
+		drawTriangle(
+			centerPoint[0] - hairRadius,
+			centerPoint[1],
+			centerPoint[0] + hairRadius,
+			centerPoint[1],
+			centerPoint[0],
+			centerPoint[1] - hairRadius,
+			hairColor,
+		)
+	})
 }
 
 export const createTheMan = () => {
