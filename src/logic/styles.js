@@ -4,10 +4,11 @@ import {
 	drawCurve,
 	drawRectangle,
 	drawEllipse,
+	drawCross,
 } from '/src/logic/drawShapes'
 
 export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
-	const mood = getRandomItem(['smile', 'frown', 'neutral'])
+	const mood = getRandomItem(['smile', 'frown', 'neutral', 'grimmace'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 
 	switch (mood) {
@@ -25,6 +26,17 @@ export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 				mouthRX,
 				y.top,
 			)
+			break
+		case 'grimmace':
+			drawRectangle(
+				mouthLX,
+				y.top,
+				mouthRX - mouthLX,
+				y.bot - y.top,
+				'#000',
+				'#fff',
+			)
+
 			break
 		default:
 			// smile
@@ -106,32 +118,22 @@ export const drawPupils = ({
 			)
 			break
 		case 'cross':
-			drawLine(
+			drawCross(
 				pupilRX,
 				pupilY - pupilYRadius,
-				pupilRX,
 				pupilY + pupilYRadius,
-				pupilColor,
-			)
-			drawLine(
 				pupilRX - pupilYRadius,
 				pupilY,
 				pupilRX + pupilYRadius,
-				pupilY,
 				pupilColor,
 			)
-			drawLine(
+			drawCross(
 				pupilLX,
 				pupilY - pupilYRadius,
-				pupilLX,
 				pupilY + pupilYRadius,
-				pupilColor,
-			)
-			drawLine(
 				pupilLX - pupilYRadius,
 				pupilY,
 				pupilLX + pupilYRadius,
-				pupilY,
 				pupilColor,
 			)
 			break

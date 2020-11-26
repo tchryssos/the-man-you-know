@@ -79,7 +79,25 @@ export const drawRectangle = (x, y, w, h, stroke = '#000', fill) => {
 	ctx.beginPath()
 	ctx.fillStyle = fill
 	ctx.strokeStyle = stroke
+	ctx.lineWidth = standardLineWidth * 2
 	ctx.rect(x, y, w, h)
 	ctx.stroke()
 	ctx.fill()
+}
+
+export const drawCross = (vX, tY, bY, lX, hY, rX, color) => {
+	drawLine(
+		vX,
+		tY,
+		vX,
+		bY,
+		color,
+	)
+	drawLine(
+		lX,
+		hY,
+		rX,
+		hY,
+		color,
+	)
 }
