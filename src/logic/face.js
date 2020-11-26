@@ -1,20 +1,15 @@
 import times from 'ramda/src/times'
 import { getCanvasSize } from '/src/logic/elements'
-import {
-	drawEllipse,
-	drawCurve,
-	drawLine,
-	drawTriangle,
-} from '/src/logic/drawShapes'
+import { drawEllipse, drawLine } from '/src/logic/drawShapes'
 import {
 	getRandomBetween,
 	getRandomColorString,
 	getRandomItem,
 } from '/src/logic/util'
-import { getMouth, getNose } from '/src/logic/styles'
+import { drawMouth, drawNose, drawPupils } from '/src/logic/styles'
 import { getEllipsePoint } from '/src/logic/math'
 
-const drawHead = () => {
+const getHead = () => {
 	const canvasSize = getCanvasSize()
 	const headRadiusX = Math.round(
 		getRandomBetween(canvasSize / 3.5, canvasSize / 2.5),
@@ -45,7 +40,7 @@ const drawHead = () => {
 
 const drawEyeEllipse = (x, y, rX, rY, color) =>
 	drawEllipse(x, y, rX, rY, 0, 2 * Math.PI, color, color)
-const drawEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
+const getEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
 	// Eyeballs
 	const eyeXRadius = getRandomBetween(headRadiusX / 8, headRadiusX / 4)
 	const eyeYRadius = getRandomBetween(headRadiusY / 8, headRadiusY / 4)
@@ -79,8 +74,15 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
 	const pupilYOffset = pupilY - headCenter
 
 	// Draw Pupils
-	drawEyeEllipse(pupilRX, pupilY, pupilXRadius, pupilYRadius, '#000')
-	drawEyeEllipse(pupilLX, pupilY, pupilXRadius, pupilYRadius, '#000')
+	const pupilColor = getRandomColorString()
+	drawPupils({
+		pupilRX,
+		pupilLX,
+		pupilY,
+		pupilXRadius,
+		pupilYRadius,
+		pupilColor,
+	})
 
 	const eyesClose = eyeXOffset - eyeXRadius <= 20
 
@@ -98,7 +100,7 @@ const drawEyes = ({ canvasSize, headRadiusX, headRadiusY, headCenter }) => {
 	}
 }
 
-const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
+const getMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 	const mouthPadding = 60
 	const mouthYTop = getRandomBetween(
 		headCenter + eyeYRadius,
@@ -121,7 +123,7 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 		) - mouthPadding
 	const mouthRX = getRandomBetween(headCenter, mouthXRMax)
 	const mouthLX = Math.min(headCenter - (mouthRX - headCenter), mouthRX - 20)
-	const y = getMouth({ mouthYTop, mouthYBottom, mouthLX, mouthRX })
+	const y = drawMouth({ mouthYTop, mouthYBottom, mouthLX, mouthRX })
 	return {
 		mouthLX,
 		mouthRX,
@@ -132,7 +134,7 @@ const drawMouth = ({ headRadiusX, headRadiusY, eyeYRadius, headCenter }) => {
 	}
 }
 
-const drawNose = ({
+const getNose = ({
 	headCenter,
 	headRadiusX,
 	headRadiusY,
@@ -168,11 +170,11 @@ const drawNose = ({
 	noseX = Math.max(headCenter + 20, noseX)
 	noseX = getRandomItem([noseX, headCenter - (noseX - headCenter)])
 
-	getNose({ headCenter, noseTop, noseBottom, noseX })
+	drawNose({ headCenter, noseTop, noseBottom, noseX })
 	return { noseTop, noseBottom, noseX }
 }
 
-const drawHair = ({ headCenter, headRadiusY, headRadiusX }) => {
+const getHair = ({ headCenter, headRadiusY, headRadiusX }) => {
 	const hairColor = getRandomColorString()
 	const hairWidth = getRandomBetween(2, 10)
 	const hairDensity = Math.floor(headRadiusX / hairWidth)
@@ -203,9 +205,9 @@ const drawHair = ({ headCenter, headRadiusY, headRadiusX }) => {
 }
 
 export const createTheMan = () => {
-	let faceProps = { ...drawHead() }
-	faceProps = { ...faceProps, ...drawEyes(faceProps) }
-	faceProps = { ...faceProps, ...drawMouth(faceProps) }
-	faceProps = { ...faceProps, ...drawNose(faceProps) }
-	faceProps = { ...faceProps, ...drawHair(faceProps) }
+	let faceProps = { ...getHead() }
+	faceProps = { ...faceProps, ...getEyes(faceProps) }
+	faceProps = { ...faceProps, ...getMouth(faceProps) }
+	faceProps = { ...faceProps, ...getNose(faceProps) }
+	faceProps = { ...faceProps, ...getHair(faceProps) }
 }

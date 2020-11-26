@@ -1,7 +1,12 @@
 import { getRandomItem, getRandomBetween } from '/src/logic/util'
-import { drawLine, drawCurve } from '/src/logic/drawShapes'
+import {
+	drawLine,
+	drawCurve,
+	drawRectangle,
+	drawEllipse,
+} from '/src/logic/drawShapes'
 
-export const getMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
+export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 	const mood = getRandomItem(['smile', 'frown', 'neutral'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 
@@ -35,7 +40,7 @@ export const getMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 	return y
 }
 
-export const getNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
+export const drawNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
 	const shape = getRandomItem(['round', 'hook'])
 
 	switch (shape) {
@@ -64,6 +69,59 @@ export const getNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
 				(noseTop + noseBottom) / 2,
 				headCenter,
 				noseBottom,
+			)
+	}
+}
+
+export const drawPupils = ({
+	pupilRX,
+	pupilLX,
+	pupilY,
+	pupilXRadius,
+	pupilYRadius,
+	pupilColor,
+}) => {
+	const style = getRandomItem(['ellipse', 'square'])
+	switch (style) {
+		case 'ellipse':
+			drawEllipse(
+				pupilRX,
+				pupilY,
+				pupilXRadius,
+				pupilYRadius,
+				0,
+				2 * Math.PI,
+				pupilColor,
+				pupilColor,
+			)
+			drawEllipse(
+				pupilLX,
+				pupilY,
+				pupilXRadius,
+				pupilYRadius,
+				0,
+				2 * Math.PI,
+				pupilColor,
+				pupilColor,
+			)
+			break
+		default:
+			//square
+			drawRectangle(
+				pupilRX - pupilXRadius,
+				pupilY - pupilYRadius,
+				pupilXRadius,
+				pupilXRadius,
+				pupilColor,
+				pupilColor,
+			)
+			drawRectangle(
+				pupilLX,
+				pupilY - pupilYRadius,
+				pupilXRadius,
+				pupilXRadius,
+				pupilColor,
+				pupilColor,
 			)
 	}
 }

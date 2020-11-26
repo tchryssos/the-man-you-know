@@ -49,6 +49,7 @@ export const drawCurve = (
 ) => {
 	ctx.beginPath()
 	ctx.fillStyle = fill
+	ctx.strokeStyle = fill
 	ctx.lineWidth = standardLineWidth
 	ctx.moveTo(startX, startY)
 	ctx.quadraticCurveTo(middleX, middleY, endX, endY)
@@ -71,5 +72,14 @@ export const drawTriangle = (ax, ay, bx, by, cx, cy, fill = '#000') => {
 	ctx.moveTo(ax, ay)
 	ctx.lineTo(bx, by)
 	ctx.lineTo(cx, cy)
+	ctx.fil
+}
+
+export const drawRectangle = (x, y, w, h, stroke = '#000', fill) => {
+	ctx.beginPath()
+	ctx.fillStyle = fill
+	ctx.strokeStyle = stroke
+	ctx.rect(x, y, w, h)
+	ctx.stroke()
 	ctx.fill()
-} 
+}
