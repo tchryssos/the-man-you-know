@@ -81,7 +81,7 @@ export const drawPupils = ({
 	pupilYRadius,
 	pupilColor,
 }) => {
-	const style = getRandomItem(['ellipse', 'square'])
+	const style = getRandomItem(['ellipse', 'square', 'cross'])
 	switch (style) {
 		case 'ellipse':
 			drawEllipse(
@@ -102,6 +102,36 @@ export const drawPupils = ({
 				0,
 				2 * Math.PI,
 				pupilColor,
+				pupilColor,
+			)
+			break
+		case 'cross':
+			drawLine(
+				pupilRX,
+				pupilY - pupilYRadius,
+				pupilRX,
+				pupilY + pupilYRadius,
+				pupilColor,
+			)
+			drawLine(
+				pupilRX - pupilYRadius,
+				pupilY,
+				pupilRX + pupilYRadius,
+				pupilY,
+				pupilColor,
+			)
+			drawLine(
+				pupilLX,
+				pupilY - pupilYRadius,
+				pupilLX,
+				pupilY + pupilYRadius,
+				pupilColor,
+			)
+			drawLine(
+				pupilLX - pupilYRadius,
+				pupilY,
+				pupilLX + pupilYRadius,
+				pupilY,
 				pupilColor,
 			)
 			break
