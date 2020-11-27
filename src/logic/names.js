@@ -1,4 +1,5 @@
 import { getRandomItem } from '/src/logic/util'
+import { nameForm, namePTag, nameInput } from '/src/logic/elements'
 
 export const defaultNames = [
 	'Billy Joel',

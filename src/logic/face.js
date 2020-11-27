@@ -1,5 +1,5 @@
 import times from 'ramda/src/times'
-import { getCanvasSize } from '/src/logic/elements'
+import { getCanvasSize, ctx, canvas } from '/src/logic/elements'
 import { drawEllipse, drawLine } from '/src/logic/drawShapes'
 import {
 	getRandomBetween,
@@ -205,6 +205,7 @@ const getHair = ({ headCenter, headRadiusY, headRadiusX }) => {
 }
 
 export const createTheMan = () => {
+	ctx.clearRect(0, 0, canvas.width, canvas.height)
 	let faceProps = { ...getHead() }
 	faceProps = { ...faceProps, ...getEyes(faceProps) }
 	faceProps = { ...faceProps, ...getMouth(faceProps) }

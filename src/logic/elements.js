@@ -53,4 +53,6 @@ export const resizeCanvas = () => {
 
 // START - NAME - START
 export const namePTag = document.getElementById('name')
+export const nameForm = document.getElementById('name-form')
+export const nameInput = document.getElementById('seed-name')
 // END - NAME - END
