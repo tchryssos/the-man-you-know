@@ -86,18 +86,6 @@ export const drawRectangle = (x, y, w, h, stroke = '#000', fill) => {
 }
 
 export const drawCross = (vX, tY, bY, lX, hY, rX, color) => {
-	drawLine(
-		vX,
-		tY,
-		vX,
-		bY,
-		color,
-	)
-	drawLine(
-		lX,
-		hY,
-		rX,
-		hY,
-		color,
-	)
+	drawLine(vX, tY, vX, bY, color)
+	drawLine(lX, hY, rX, hY, color)
 }

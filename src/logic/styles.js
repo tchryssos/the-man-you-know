@@ -43,7 +43,7 @@ export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 			times((n) => {
 				if (n === 0) return
 				drawCross(
-					mouthLX + ((mouthLength / teeth) * n),
+					mouthLX + (mouthLength / teeth) * n,
 					y.top,
 					y.bot,
 					mouthLX,
