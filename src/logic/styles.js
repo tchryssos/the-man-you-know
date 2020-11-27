@@ -1,3 +1,4 @@
+import times from 'ramda/src/times'
 import { getRandomItem, getRandomBetween } from '/src/logic/util'
 import {
 	drawLine,
@@ -8,7 +9,8 @@ import {
 } from '/src/logic/drawShapes'
 
 export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
-	const mood = getRandomItem(['smile', 'frown', 'neutral', 'grimmace'])
+	// const mood = getRandomItem(['smile', 'frown', 'neutral', 'grimmace'])
+	const mood = 'grimmace'
 	let y = { top: mouthYTop, bot: mouthYBottom }
 
 	switch (mood) {
@@ -27,7 +29,8 @@ export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 				y.top,
 			)
 			break
-		case 'grimmace':
+		case 'grimmace': {
+			y.bot = Math.max(y.bot, y.top + 12)
 			drawRectangle(
 				mouthLX,
 				y.top,
@@ -36,8 +39,22 @@ export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 				'#000',
 				'#fff',
 			)
-
+			const teeth = getRandomBetween(2, 4)
+			const mouthLength = mouthRX - mouthLX
+			times(
+				(n) => {
+					drawCross(
+						(mouthLX + (mouthLength / n + 1)),
+						y.top,
+						y.bot,
+						mouthLX,
+						(y.top + y.bot) / 2,
+						mouthRX,
+					)
+				}, teeth
+			)
 			break
+		}
 		default:
 			// smile
 			drawCurve(
@@ -73,7 +90,6 @@ export const drawNose = ({ headCenter, noseTop, noseBottom, noseX }) => {
 		}
 		default:
 			// round
-
 			drawCurve(
 				headCenter,
 				noseTop,
