@@ -9,8 +9,7 @@ import {
 } from '/src/logic/drawShapes'
 
 export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
-	// const mood = getRandomItem(['smile', 'frown', 'neutral', 'grimmace'])
-	const mood = 'grimmace'
+	const mood = getRandomItem(['smile', 'frown', 'neutral', 'grimmace'])
 	let y = { top: mouthYTop, bot: mouthYBottom }
 
 	switch (mood) {
@@ -39,20 +38,19 @@ export const drawMouth = ({ mouthYTop, mouthYBottom, mouthLX, mouthRX }) => {
 				'#000',
 				'#fff',
 			)
-			const teeth = getRandomBetween(2, 4)
+			const teeth = getRandomBetween(2, 5)
 			const mouthLength = mouthRX - mouthLX
-			times(
-				(n) => {
-					drawCross(
-						(mouthLX + (mouthLength / n + 1)),
-						y.top,
-						y.bot,
-						mouthLX,
-						(y.top + y.bot) / 2,
-						mouthRX,
-					)
-				}, teeth
-			)
+			times((n) => {
+				if (n === 0) return
+				drawCross(
+					mouthLX + ((mouthLength / teeth) * n),
+					y.top,
+					y.bot,
+					mouthLX,
+					(y.top + y.bot) / 2,
+					mouthRX,
+				)
+			}, teeth)
 			break
 		}
 		default:
