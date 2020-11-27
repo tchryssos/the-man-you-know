@@ -4,4 +4,4 @@ What follows is documentation specific to `The Man You Know`. For documentation 
 
 ## Feedback
 
-If there's a feature you'd like to see added or a question you have about `The Man You Know` you can [open a github issue here](https://github.com/tchryssos/stream-cc/issues) or [email me here](mailto:troychryssos@gmail.com?subject="Stream%20CC").
+If there's a feature you'd like to see added or a question you have about `The Man You Know` you can [open a github issue here](https://github.com/tchryssos/the-man-you-know/issues) or [email me here](mailto:troychryssos@gmail.com?subject="Stream%20CC").
